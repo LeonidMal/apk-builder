@@ -14,9 +14,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build with Buildozer
-        uses: ArtemS-G/buildozer-action@v1
+        uses: kivy/buildozer-action@v1
         with:
           command: buildozer android debug
+          subfolder: .
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
