@@ -9,28 +9,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    container:
+      image: kivy/buildozer:latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Install dependencies
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y -qq build-essential ccache git python3-dev \
-            libreadline-dev libsqlite3-dev libssl-dev libffi-dev \
-            liblzma-dev libbz2-dev openjdk-17-jdk zip unzip tar \
-            ffmpeg libsdl2-dev libsdl2-image-dev libsdl2-mixin-dev libsdl2-ttf-dev
-          python -m pip install --upgrade pip
-          pip install buildozer "cython<3.0.0"
-
-      - name: Build APK with Buildozer
+      - name: Build APK
         run: |
           buildozer android debug
 
